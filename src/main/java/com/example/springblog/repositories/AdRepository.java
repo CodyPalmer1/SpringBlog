@@ -1,4 +1,4 @@
-package repository;
+package repositories;
 
 import models.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;

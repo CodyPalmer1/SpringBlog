@@ -1,21 +1,18 @@
 package com.example.springblog;
 import models.Post;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import repository.PostRepository;
+import repositories.PostRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class PostController {
+    private final PostRepository postDao;
 
-    private PostRepository postDao;
-
-    public PostController(PostRepository postDao) {
-        this.postDao = postDao;
+    public PostController(PostRepository postsDao){
+        this.postDao = postsDao;
     }
 
     @GetMapping("/posts")
