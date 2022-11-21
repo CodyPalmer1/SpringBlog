@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+
+</head>
+<body>
+<h1>Hello, <span th:text="${name}">World</span>!</h1>
+
+<form th:replace="partials/card.html :: form-component"></form>
+
+<th:block th:insert="partials/card.html :: card-component"></th:block>
+<div th:replace="partials/card.html :: card-component"></div>
+<div th:replace="partials/card.html :: card-component"></div>
+
+
+</body>
+</html>
