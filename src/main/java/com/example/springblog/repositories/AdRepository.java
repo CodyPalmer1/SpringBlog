@@ -1,6 +1,6 @@
-package repositories;
+package com.example.springblog.repositories;
 
-import models.Ad;
+import com.example.springblog.models.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdRepository extends JpaRepository<Ad, Long> {

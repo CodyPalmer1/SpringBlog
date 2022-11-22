@@ -1,4 +1,4 @@
-package models;
+package com.example.springblog.models;
 
 import javax.persistence.*;
 
@@ -13,6 +13,10 @@ public class Post {
     private String title;
     @Column(nullable = false, length = 300)
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post(){};
 
@@ -49,5 +53,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

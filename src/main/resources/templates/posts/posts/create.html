@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,12 +7,25 @@
 <body>
 <h1>Create a post!</h1>
 
-<form action="/posts/create" method="POST">
-    <label for="title">title</label>
-    <input type="text" id="title" name="title">
+
+<!--WITHOUT FORM MODEL BINDING-->
+<!--<form action="/posts/create" method="POST">-->
+<!--    <label for="title">title</label>-->
+<!--    <input type="text" id="title" name="title">-->
+<!--    <label for="description">description</label>-->
+<!--    <textarea id="description" name="description"></textarea>-->
+<!--    <submit type="submit">submit</submit>-->
+<!--</form>-->
+
+<!-- FORM MODEL BINDING -->
+<form th:action="@{/post/create}" th:method="POST" th:object="${post}">
+    <label for="title">Title</label>
+    <input th:field="*{title}" id="title">
+    <br/>
     <label for="description">description</label>
-    <textarea id="description" name="description"></textarea>
-    <submit type="submit">submit</submit>
+    <input th:field="*{body}" id="description">
+    <br/>
+    <button type="submit">post</button>
 </form>
 
 </body>

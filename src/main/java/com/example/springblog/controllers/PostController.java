@@ -1,9 +1,11 @@
-package com.example.springblog;
-import models.Post;
+package com.example.springblog.controllers;
+import com.example.springblog.models.Post;
+import com.example.springblog.models.User;
+import com.example.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import repositories.PostRepository;
+import com.example.springblog.repositories.PostRepository;
 
 import java.util.List;
 
@@ -11,9 +13,12 @@ import java.util.List;
 public class PostController {
     private final PostRepository postDao;
 
-    public PostController(PostRepository postsDao){
+    public PostController(PostRepository postsDao, UserRepository userDao){
         this.postDao = postsDao;
+        this.userDao = userDao;
     }
+
+    private final UserRepository userDao;
 
     @GetMapping("/posts")
     public String postsIndex(Model model) {
@@ -37,25 +42,46 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable long id, Model model) {
-        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!");
-        model.addAttribute("post", singlePost);
+//        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!");
+//        model.addAttribute("post", singlePost);
+        Post singlePost = postDao.getReferenceById(id);
         return "posts/show";
     }
 
+    //    NOT USING FORM MODEL BINDING
+//    @GetMapping("/posts/create")
+//    @ResponseBody
+//    public String showCreateForm(Model model) {
+//        return "posts/create";
+//    }
+
+//    USING FORM MODEL BINDING
     @GetMapping("/posts/create")
     @ResponseBody
-    public String showCreateForm() {
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    @ResponseBody
-    public String submitPost(@RequestParam(name = "title")String title, @RequestParam(name = "description")String description) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(description);
+//    NOT USING FORM MODEL BINDING
+//    @PostMapping("/posts/create")
+//    @ResponseBody
+//    public String submitPost(@RequestParam(name = "title")String title, @RequestParam(name = "description")String description) {
+//        Post post = new Post();
+//        post.setTitle(title);
+//        post.setBody(description);
+//        User user = userDao.getById(1L);
+//        post.setUser(user);
+//        postDao.save(post);
+//        return "redirect:/posts";
+//    }
+
+//    USING FORM MODEL BINDING
+    @PostMapping("/post/create")
+    public String create(@ModelAttribute Post post){
+        User user = userDao.getById(1L);
+        post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";
     }
-
 }
