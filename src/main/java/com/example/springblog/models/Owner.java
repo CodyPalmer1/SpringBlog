@@ -17,16 +17,18 @@ public class Owner {
 
     @Column
     private String firstName;
-
     @Column
     private String lastName;
+    @Column
+    private String email;
 
     public Owner(){};
 
-    public Owner(long id, String firstName, String lastName) {
+    public Owner(long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 
     public long getId() {
@@ -51,5 +53,13 @@ public class Owner {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
