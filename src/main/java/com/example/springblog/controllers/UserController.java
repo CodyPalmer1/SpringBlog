@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+
     private UserRepository userDao;
+
     private PasswordEncoder passwordEncoder;
 
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
@@ -20,15 +22,18 @@ public class UserController {
     }
 
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model){
-        model.addAttribute("user", new User());
-        return "users/sign-up";
+    public String showSignUpForm(Model model) {
+        model.addAttribute("newUser", new User());
+        return "users/signup";
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user){
+    public String saveUser(@ModelAttribute User user) {
+        // Hash the password using the encode method.
         String hash = passwordEncoder.encode(user.getPassword());
+        // Set the password to the hashed version.
         user.setPassword(hash);
+        // Save the user to the DB.
         userDao.save(user);
         return "redirect:/login";
     }

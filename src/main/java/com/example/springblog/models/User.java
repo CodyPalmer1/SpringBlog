@@ -1,5 +1,7 @@
 package com.example.springblog.models;
 
+import com.example.springblog.models.Post;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,7 +25,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> post;
 
-    public User(User copy){
+    public User(){}
+
+
+    // Create a copy of the user to provide to the UserWithRoles class.
+    public User(User copy) {
         id = copy.id;
         email = copy.email;
         username = copy.username;
@@ -37,8 +43,6 @@ public class User {
         this.password = password;
         this.post = post;
     }
-
-    public User() {}
 
     public long getId() {
         return id;

@@ -6,6 +6,11 @@ import com.example.springblog.repositories.PostRepository;
 import com.example.springblog.repositories.UserRepository;
 import com.example.springblog.Services.AdService;
 import com.example.springblog.Services.EmailService;
+import com.example.springblog.Services.EmailService;
+import com.example.springblog.models.Post;
+import com.example.springblog.models.User;
+import com.example.springblog.repositories.PostRepository;
+import com.example.springblog.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +47,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable long id, Model model) {
-//        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!");
-
+//        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!")
         Post singlePost = postDao.getById(id);
         model.addAttribute("post", singlePost);
         return "posts/show";
@@ -78,7 +82,8 @@ public class PostController {
     //    USING FORM MODEL BINDING
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post){
-        User user = userDao.getById(1L);
+
+//        User user = userDao.getById(1L);
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        User user = userDao.getReferenceById(1L);
         post.setUser(currentUser);

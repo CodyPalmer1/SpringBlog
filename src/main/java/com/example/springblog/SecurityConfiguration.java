@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
+    // This method allows us to configure settings for different URL paths and who can access them.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
